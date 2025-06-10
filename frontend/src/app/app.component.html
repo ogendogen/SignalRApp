@@ -1,0 +1,29 @@
+<div class="app-container">
+  <mat-toolbar color="primary">
+    <span>SignalR Chat Application</span>
+  </mat-toolbar>
+
+  <div class="content">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        routerLink="/chat"
+        routerLinkActive
+        #chatTab="routerLinkActive"
+        [active]="chatTab.isActive"
+        >Chat</a
+      >
+      <a
+        mat-tab-link
+        routerLink="/tictactoe"
+        routerLinkActive
+        #tictactoeTab="routerLinkActive"
+        [active]="tictactoeTab.isActive"
+        >TicTacToe</a
+      >
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

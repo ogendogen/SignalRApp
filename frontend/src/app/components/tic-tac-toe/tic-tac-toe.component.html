@@ -1,0 +1,47 @@
+<div class="game-container">
+  <h2>Tic Tac Toe</h2>
+  <div class="game-status">Player X's turn</div>
+
+  <div class="game-board">
+    <div class="cell" id="cell-0">
+      <img *ngIf="IsX(0, 0)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(0, 0)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-1">
+      <img *ngIf="IsX(0, 1)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(0, 1)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-2">
+      <img *ngIf="IsX(0, 2)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(0, 2)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-3">
+      <img *ngIf="IsX(1, 0)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(1, 0)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-4">
+      <img *ngIf="IsX(1, 1)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(1, 1)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-5">
+      <img *ngIf="IsX(1, 2)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(1, 2)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-6">
+      <img *ngIf="IsX(2, 0)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(2, 0)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-7">
+      <img *ngIf="IsX(2, 1)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(2, 1)" src="circle.png" width="64" height="64" />
+    </div>
+    <div class="cell" id="cell-8">
+      <img *ngIf="IsX(2, 2)" src="x.png" width="64" height="64" />
+      <img *ngIf="IsCircle(2, 2)" src="circle.png" width="64" height="64" />
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" class="reset-button">
+    Reset Game
+  </button>
+</div>

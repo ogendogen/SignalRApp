@@ -1,0 +1,29 @@
+<mat-card class="chat-card">
+  <mat-card-header>
+    <mat-card-title>SignalR Chat</mat-card-title>
+    <mat-card-subtitle>Connected as: {{ username }}</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <mat-list class="message-list">
+      <mat-list-item *ngFor="let message of messages">
+        {{ message }}
+      </mat-list-item>
+      <mat-list-item *ngIf="messages.length === 0">
+        No messages yet. Start the conversation!
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="message-form">
+      <mat-form-field appearance="outline" class="message-input">
+        <mat-label>Message</mat-label>
+        <input matInput formControlName="message" placeholder="Type a message">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="chatForm.invalid">
+        Send
+      </button>
+    </form>
+  </mat-card-actions>
+</mat-card>
