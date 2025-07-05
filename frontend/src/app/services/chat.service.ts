@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class SignalRService {
+export class ChatService {
   private hubConnection!: signalR.HubConnection;
   private messagesSubject = new BehaviorSubject<string[]>([]);
   public messages$ = this.messagesSubject.asObservable();

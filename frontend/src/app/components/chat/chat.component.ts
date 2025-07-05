@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { Subject, takeUntil } from 'rxjs';
-import { SignalRService } from '../../services/signalr.service';
+import { ChatService } from '../../services/chat.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -35,7 +35,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   username = 'User_' + Math.floor(Math.random() * 1000);
   private destroy$ = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private signalRService: SignalRService) {
+  constructor(private fb: FormBuilder, private signalRService: ChatService) {
     this.chatForm = this.fb.group({
       message: ['', Validators.required],
     });
