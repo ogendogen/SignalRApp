@@ -28,6 +28,12 @@ public class TicTacToeHub : Hub
     {
         // which player -> field status
         var groupName = GetPlayersActiveGroupName(player);
+        if (String.IsNullOrEmpty(groupName))
+        {
+            await Clients.Caller.SendAsync("MoveMade", "Error", "Group not found");
+            return;
+        }
+
         var fieldStatus = GetFieldStatus(groupName, player);
         var movementResult = _ticTacToeService.Move(groupName, player, row, col, fieldStatus);
         await Clients.Group(groupName).SendAsync("MoveMade", player, row, col, movementResult);
