@@ -8,6 +8,7 @@ public class Game
     private bool _player1Turn = true;
     private string _player1Name = null!;
     private string _player2Name = null!;
+    private GameStatus _gameStatus = GameStatus.Unknown;
     public Game(string player1, string player2)
     {
         _player1Name = player1;
@@ -16,6 +17,23 @@ public class Game
         //https://github.com/damienbod/AspNetCoreAngularSignalRSecurity?tab=readme-ov-file
     }
     public string Name { get; set; }
+    public GameStatus GameStatus
+    {
+        get
+        {
+            return _gameStatus;
+        }
+        set
+        {
+            if ((_gameStatus == GameStatus.Unknown && (value == GameStatus.Player1Ready || value == GameStatus.Player2Ready)) ||
+                (_gameStatus == GameStatus.Player1Ready && value == GameStatus.Player2Ready) ||
+                (_gameStatus == GameStatus.Player2Ready && value == GameStatus.Player1Ready) ||
+                (_gameStatus == GameStatus.Player1Ready || _gameStatus == GameStatus.Player2Ready && value == GameStatus.InProgress))
+            {
+                _gameStatus = value;
+            }
+        }
+    }
     public MovementResult Move(string player, int x, int y, FieldStatus fieldStatus)
     {
         if (x < 0 || y < 0 || x > 2 || y > 2)

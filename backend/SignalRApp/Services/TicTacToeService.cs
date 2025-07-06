@@ -32,6 +32,11 @@ public class TicTacToeService : ITicTacToeService
 
     public void StartGame(string player1, string player2)
     {
+        if (_games.TryGetValue(player1, out Game? game))
+        {
+            // do sth
+        }
+
         _games.Add(GetPlayersGroupName(player1, player2), new Game(player1, player2));
     }
 

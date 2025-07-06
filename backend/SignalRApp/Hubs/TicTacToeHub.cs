@@ -19,7 +19,7 @@ public class TicTacToeHub : Hub
     public async Task StartGame(string player1, string player2)
     {
         var groupName = GetPlayersGroupName(player1, player2);
-        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        _ticTacToeService.StartGame(player1, player2);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         await Clients.Group(groupName).SendAsync("GameStarted", player1, player2);
     }
