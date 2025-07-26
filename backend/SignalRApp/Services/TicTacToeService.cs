@@ -7,7 +7,7 @@ namespace SignalRApp.Services;
 
 public class TicTacToeService : ITicTacToeService
 {
-    private readonly Dictionary<string, Game> _games = new Dictionary<string, Game>();
+    private readonly HashSet<Game> _games = new();
 
     public void EndGame(string player1, string player2)
     {
@@ -30,14 +30,11 @@ public class TicTacToeService : ITicTacToeService
         return game!.Move(player, x, y, fieldStatus);
     }
 
-    public void StartGame(string player1, string player2)
+    public Guid StartGame(string player1, string player2)
     {
-        if (_games.TryGetValue(player1, out Game? game))
-        {
-            // do sth
-        }
-
-        _games.Add(GetPlayersGroupName(player1, player2), new Game(player1, player2));
+        var game = new Game(player1, player2);
+        _games.Add(game);
+        return game.Id;
     }
 
     private string GetPlayersGroupName(string player1, string player2)

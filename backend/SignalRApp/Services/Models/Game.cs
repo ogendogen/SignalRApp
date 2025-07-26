@@ -2,21 +2,23 @@
 
 namespace SignalRApp.Services.Models;
 
-public class Game
+public class Game : IEquatable<Game?>
 {
+    public Guid Id { get; }
+
     private readonly FieldStatus[,] _board = new FieldStatus[2, 2];
     private bool _player1Turn = true;
     private string _player1Name = null!;
     private string _player2Name = null!;
     private GameStatus _gameStatus = GameStatus.Unknown;
+
     public Game(string player1, string player2)
     {
         _player1Name = player1;
         _player2Name = player2;
-        Name = $"{player1} {player2}";
+        Id = Guid.NewGuid();
         //https://github.com/damienbod/AspNetCoreAngularSignalRSecurity?tab=readme-ov-file
     }
-    public string Name { get; set; }
     public GameStatus GameStatus
     {
         get
@@ -111,5 +113,31 @@ public class Game
         }
 
         return Winner.None;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return Equals(obj as Game);
+    }
+
+    public bool Equals(Game? other)
+    {
+        return other is not null &&
+               Id.Equals(other.Id);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id);
+    }
+
+    public static bool operator ==(Game? left, Game? right)
+    {
+        return EqualityComparer<Game>.Default.Equals(left, right);
+    }
+
+    public static bool operator !=(Game? left, Game? right)
+    {
+        return !(left == right);
     }
 }
