@@ -21,6 +21,10 @@ export class TicTacToeService {
     return this.hubConnection.start();
   }
 
+  public startGame(player1: string, player2: string): Promise<any> {
+    return this.hubConnection.invoke('StartGame', player1, player2);
+  }
+
   public addMessageListener(): void {
     this.hubConnection.on('ReceiveMessage', (user: string, message: string) => {
       const currentMessages = this.messagesSubject.value;

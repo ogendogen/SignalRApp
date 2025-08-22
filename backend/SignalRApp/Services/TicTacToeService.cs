@@ -1,4 +1,5 @@
-﻿using SignalRApp.Services.Interfaces;
+﻿using SignalRApp.Hubs.Models;
+using SignalRApp.Services.Interfaces;
 using SignalRApp.Services.Models;
 using SignalRApp.Services.Models.Enums;
 using System.Numerics;
@@ -11,12 +12,13 @@ public class TicTacToeService : ITicTacToeService
 
     public void EndGame(string player1, string player2)
     {
-        var groupName = GetPlayersGroupName(player1, player2);
-        var isGameFound = _games.TryGetValue(groupName, out Game? game);
-        if (isGameFound)
-        {
-            _games.Remove(groupName);
-        }
+        throw new NotImplementedException();
+        //var groupName = GetPlayersGroupName(player1, player2);
+        //var isGameFound = _games.TryGetValue(groupName, out Game? game);
+        //if (isGameFound)
+        //{
+        //    _games.Remove(groupName);
+        //}
     }
 
     public MovementResult Move(string groupName, string player, int x, int y, FieldStatus fieldStatus)
@@ -30,7 +32,7 @@ public class TicTacToeService : ITicTacToeService
         return game!.Move(player, x, y, fieldStatus);
     }
 
-    public Guid StartGame(string player1, string player2)
+    public Guid StartGame(Player player1, Player player2)
     {
         var game = new Game(player1, player2);
         _games.Add(game);

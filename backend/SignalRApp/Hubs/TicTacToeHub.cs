@@ -4,8 +4,10 @@ using SignalRApp.Contracts.Invite;
 using SignalRApp.Contracts.Login;
 using SignalRApp.Contracts.RejectInvite;
 using SignalRApp.Contracts.StartGame;
+using SignalRApp.Hubs.Models;
 using SignalRApp.Services.Interfaces;
 using SignalRApp.Services.Models.Enums;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SignalRApp.Hubs;
 
@@ -13,8 +15,8 @@ public class TicTacToeHub : Hub
 {
     private readonly IGroupsService _groupsService;
     private readonly ITicTacToeService _ticTacToeService;
-    private static readonly Dictionary<string, string> _connectionUsers = new();
-    private static readonly Dictionary<Guid, string> _invitations = new();
+    private static readonly HashSet<Player> _connectedPlayers = new();
+    private static readonly HashSet<Invitation> _invitations = new();
 
     public TicTacToeHub(IGroupsService groupsService, ITicTacToeService ticTacToeService)
     {
@@ -24,31 +26,39 @@ public class TicTacToeHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        _connectionUsers.Add(Context.ConnectionId, string.Empty);
+        _connectedPlayers.Add(new Player() { ConnectionId = Context.ConnectionId, Name = string.Empty });
         await base.OnConnectedAsync();
     }
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        _connectionUsers.Remove(Context.ConnectionId);
+        _connectedPlayers.RemoveWhere(p => p.ConnectionId == Context.ConnectionId);
         await base.OnDisconnectedAsync(exception);
     }
 
     public async Task Login(LoginRequest request)
     {
-        _connectionUsers[Context.ConnectionId] = request.Player;
-        await Clients.Caller.SendAsync("Login", new LoginResponse(true));
+        var user = _connectedPlayers.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
+        if (user is null)
+        {
+            await Clients.Caller.SendAsync("LoggedIn", new LoginResponse(false));
+            return;
+        }
+
+        user.Name = request.Player;
+
+        await Clients.Caller.SendAsync("LoggedIn", new LoginResponse(true));
     }
 
     public async Task Invite(InviteRequest request)
     {
-        var login = _connectionUsers[Context.ConnectionId];
-        var invitedPlayerConnectionId = _connectionUsers.FirstOrDefault(x => x.Value == request.InvitedPlayer).Key; // todo: optimize with reversed dictionary
+        var invitingPlayer = _connectedPlayers.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
+        var invitedPlayerConnectionId = _connectedPlayers.FirstOrDefault(p => p.Name == request.InvitedPlayer)?.ConnectionId; // todo: optimize with reversed dictionary
         if (invitedPlayerConnectionId is not null)
         {
-            var inviteId = Guid.NewGuid();
-            _invitations.Add(inviteId, login);
-            await Clients.Client(invitedPlayerConnectionId).SendAsync("Invitation", new Invitation(inviteId, request.InvitedPlayer));
+            var invitation = new Invitation(Guid.NewGuid(), invitingPlayer!.Name, request.InvitedPlayer); // todo: fix exclamation mark
+            _invitations.Add(invitation);
+            await Clients.Client(invitedPlayerConnectionId).SendAsync("Invitation", invitation);
             await Clients.Caller.SendAsync("InviteSent", new InviteResponse(true));
         }
         else
@@ -59,25 +69,38 @@ public class TicTacToeHub : Hub
 
     public async Task AcceptInvite(AcceptInviteRequest request)
     {
-        //var player1 = _connectionUsers[Context.ConnectionId];
-        //var player2 = request.Player;
-        //var groupName = GetPlayersGroupName(player1, player2);
-        //_groupsService.AddGroup(groupName);
-        //await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-        //await Clients.Group(groupName).SendAsync("InviteAccepted", player1, player2);
+        var invitation = _invitations.FirstOrDefault(x => x.InviteId == request.InviteId);
+        if (invitation is null)
+        {
+            await Clients.Caller.SendAsync("InviteAccepted", new AcceptInviteResponse(false, "Invitation does not exist"));
+            return;
+        }
+
+        var player1 = new Player() { ConnectionId = _connectedPlayers.FirstOrDefault(p => p.Name == invitation.From)!.ConnectionId, Name = invitation.From };
+        var player2 = new Player() { ConnectionId = Context.ConnectionId, Name = invitation.To };
+
+        var gameId = _ticTacToeService.StartGame(player1, player2);
+        var groupName = gameId.ToString();
+        _groupsService.AddGroup(groupName, player1, player2);
+        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
+        await Clients.OthersInGroup(groupName).SendAsync("InviteAccepted", invitation.From, invitation.To);
+
+        await Clients.Group(groupName).SendAsync("GameStarted", gameId, player1, player2);
     }
 
     public async Task RejectInvite(RejectInviteRequest request)
     {
-    }
+        var invitation = _invitations.FirstOrDefault(x => x.InviteId == request.InviteId);
+        if (invitation is null)
+        {
+            await Clients.Caller.SendAsync("InviteRejected", new RejectInviteResponse(false, "Invitation does not exist"));
+            return;
+        }
 
-    public async Task StartGame(StartGameRequest request)
-    {
-        // todo: rethink
-
-        //var gameId = _ticTacToeService.StartGame(request.Player);
-        //await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
-        //await Clients.Group(groupName).SendAsync("GameStarted", player1, player2);
+        _invitations.Remove(invitation);
+        await Clients.Caller.SendAsync("InviteRejected", new RejectInviteResponse(true));
     }
 
     public async Task Move(string player, int row, int col)
@@ -103,11 +126,6 @@ public class TicTacToeHub : Hub
         }
 
         return FieldStatus.Circle;
-    }
-
-    private string GetPlayersGroupName(string player1, string player2)
-    {
-        return $"{player1} {player2}";
     }
 
     private string GetPlayersActiveGroupName(string player)

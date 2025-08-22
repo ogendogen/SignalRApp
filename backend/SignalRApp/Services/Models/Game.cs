@@ -1,4 +1,5 @@
-﻿using SignalRApp.Services.Models.Enums;
+﻿using SignalRApp.Hubs.Models;
+using SignalRApp.Services.Models.Enums;
 
 namespace SignalRApp.Services.Models;
 
@@ -8,14 +9,14 @@ public class Game : IEquatable<Game?>
 
     private readonly FieldStatus[,] _board = new FieldStatus[2, 2];
     private bool _player1Turn = true;
-    private string _player1Name = null!;
-    private string _player2Name = null!;
+    private Player _player1 = null!;
+    private Player _player2 = null!;
     private GameStatus _gameStatus = GameStatus.Unknown;
 
-    public Game(string player1, string player2)
+    public Game(Player player1, Player player2)
     {
-        _player1Name = player1;
-        _player2Name = player2;
+        _player1 = player1;
+        _player2 = player2;
         Id = Guid.NewGuid();
         //https://github.com/damienbod/AspNetCoreAngularSignalRSecurity?tab=readme-ov-file
     }
