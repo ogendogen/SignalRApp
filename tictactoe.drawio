@@ -1,0 +1,348 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:142.0) Gecko/20100101 Firefox/142.0" version="28.1.1">
+  <diagram name="Strona-1" id="JAJ0HCYpaV7ycwd0NQzp">
+    <mxGraphModel dx="1426" dy="733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Player 1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" parent="1" vertex="1">
+          <mxGeometry width="150" height="1304" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Player 2" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" parent="1" vertex="1">
+          <mxGeometry x="200" width="150" height="1304" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" parent="1" vertex="1">
+          <mxGeometry x="491" width="150" height="1304" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="&quot;Storage&quot;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" parent="1" vertex="1">
+          <mxGeometry x="750" width="150" height="1304" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="OnConnectedAsync" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="2" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="329" y="107" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8" value="Login" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="224.5" y="210" />
+            </Array>
+            <mxPoint x="70" y="210" as="sourcePoint" />
+            <mxPoint x="361" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="10" value="Invite &quot;Player 2&quot;" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="324.5" y="360" />
+            </Array>
+            <mxPoint x="70" y="360" as="sourcePoint" />
+            <mxPoint x="561" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="11" value="Check if invited player is logged in. &#xa;Create invitation" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690.5" y="380" />
+            </Array>
+            <mxPoint x="570" y="380" as="sourcePoint" />
+            <mxPoint x="793" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="12" value="Send move info" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" parent="1" target="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="327.5" y="680" />
+            </Array>
+            <mxPoint x="561" y="680" as="sourcePoint" />
+            <mxPoint x="80" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="13" value="Make a move" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="429" y="540" />
+            </Array>
+            <mxPoint x="274.5" y="540" as="sourcePoint" />
+            <mxPoint x="565.5" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="14" value="Zapisanie stanu gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="4" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="523" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15" value="Status gry aktualny" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="830" />
+            </Array>
+            <mxPoint x="565.5" y="830" as="sourcePoint" />
+            <mxPoint x="274.5" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" value="Zagrać ruch" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="329" y="980" />
+            </Array>
+            <mxPoint x="74.5" y="980" as="sourcePoint" />
+            <mxPoint x="565.5" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="Check move and save" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="688.5" y="660" />
+            </Array>
+            <mxPoint x="568" y="660" as="sourcePoint" />
+            <mxPoint x="827" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="20" value="Aktualizacja stanu gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="4" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="835" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="21" value="Powiadomienie o ruchu Player2" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" parent="1" source="4" target="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="332" y="887" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22" value="Wyjście z gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="2" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="329" y="939" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23" value="Zapisanie stanu gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="4" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="991" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="24" value="Potwierdzenie wyjścia" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" parent="1" source="4" target="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="332" y="1043" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="25" value="Wyjście z gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="3" target="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="429" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26" value="Zapisanie stanu gry" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" parent="1" source="4" target="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="1147" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="27" value="Potwierdzenie wyjścia" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" parent="1" source="4" target="3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="1199" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-27" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" target="5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="120" as="sourcePoint" />
+            <mxPoint x="788.5" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-28" value="Save ConnectionId" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oG-EsjkIjVFElJwhdSvV-27">
+          <mxGeometry x="-0.3135" y="-1" relative="1" as="geometry">
+            <mxPoint x="25" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-29" value="OnConnectedAsync" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="324" y="150" />
+            </Array>
+            <mxPoint x="70" y="150" as="sourcePoint" />
+            <mxPoint x="561" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-30" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" target="5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="180" as="sourcePoint" />
+            <mxPoint x="788.5" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-31" value="Save ConnectionId" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oG-EsjkIjVFElJwhdSvV-30">
+          <mxGeometry x="-0.3135" y="-1" relative="1" as="geometry">
+            <mxPoint x="25" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-32" value="Check if free and save" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="724.5" y="230" />
+            </Array>
+            <mxPoint x="570" y="230" as="sourcePoint" />
+            <mxPoint x="790" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-35" value="Return LoginResponse" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="327" y="250" />
+            </Array>
+            <mxPoint x="561" y="250" as="sourcePoint" />
+            <mxPoint x="110" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-36" value="Login" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="224.5" y="280" />
+            </Array>
+            <mxPoint x="70" y="280" as="sourcePoint" />
+            <mxPoint x="566" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-37" value="Check if free and save" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="724.5" y="300" />
+            </Array>
+            <mxPoint x="570" y="300" as="sourcePoint" />
+            <mxPoint x="790" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-38" value="Return LoginResponse" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="327" y="320" />
+            </Array>
+            <mxPoint x="561" y="320" as="sourcePoint" />
+            <mxPoint x="100" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-39" value="Send invitation from &quot;Player 1&quot;" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="400" />
+            </Array>
+            <mxPoint x="560" y="400" as="sourcePoint" />
+            <mxPoint x="270" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-40" value="Respond to invitation (Accept/Decline)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="534.5" y="430" />
+            </Array>
+            <mxPoint x="280" y="430" as="sourcePoint" />
+            <mxPoint x="550" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-41" value="Check response. Remove invitation if declined.&#xa;Transform into game if accepted" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690.5" y="460" />
+            </Array>
+            <mxPoint x="570" y="460" as="sourcePoint" />
+            <mxPoint x="793" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-42" value="Start a game" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="437" y="480" />
+            </Array>
+            <mxPoint x="571" y="480" as="sourcePoint" />
+            <mxPoint x="280" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-43" value="Start a game" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="437" y="510" />
+            </Array>
+            <mxPoint x="571" y="510" as="sourcePoint" />
+            <mxPoint x="280" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-44" value="Check move and save" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="688" y="560" />
+            </Array>
+            <mxPoint x="568" y="560" as="sourcePoint" />
+            <mxPoint x="827" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-45" value="Send move info" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="4" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="437.5" y="584" />
+            </Array>
+            <mxPoint x="571" y="584" as="sourcePoint" />
+            <mxPoint x="310" y="584" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-46" value="Send move info" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432.5" y="610" />
+            </Array>
+            <mxPoint x="565.5" y="610" as="sourcePoint" />
+            <mxPoint x="74.5" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-47" value="Make a move" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="434" y="640" />
+            </Array>
+            <mxPoint x="80" y="640" as="sourcePoint" />
+            <mxPoint x="560" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-48" value="Send move info" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="332.5" y="710" />
+            </Array>
+            <mxPoint x="566" y="710" as="sourcePoint" />
+            <mxPoint x="274.5" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-49" value="Player1 wins" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="4" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="328" y="740" />
+            </Array>
+            <mxPoint x="561.5" y="740" as="sourcePoint" />
+            <mxPoint x="270" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oG-EsjkIjVFElJwhdSvV-50" value="Player1 wins" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=horizontal;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="323" y="770" />
+            </Array>
+            <mxPoint x="561" y="770" as="sourcePoint" />
+            <mxPoint x="280" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
