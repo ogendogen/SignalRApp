@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/@microsoft/signalr@latest/dist/browser/signalr.js"></script>
+  </head>
+  <body>
+    <script>
+      const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7171/tictactoehub")
+        .build();
+
+      connection.start().then(function () {
+        console.log("Connected");
+
+        // Test Login
+        connection.invoke("Login", {
+          player: "test2",
+        });
+
+        // Test Invite
+        // connection.invoke("Invite", { invitedPlayer: "OtherUser" });
+      });
+
+      // Listen for responses
+      connection.on("Login", function (response) {
+        console.log("Login response:", response);
+      });
+    </script>
+  </body>
+</html>

@@ -1,23 +1,43 @@
 ﻿using SignalRApp.Hubs.Models;
 using SignalRApp.Services.Interfaces;
+using SignalRApp.Services.Models;
 
 namespace SignalRApp.Services;
 
 public class GroupsService : IGroupsService
 {
-    private readonly List<string> _groups = [];
-    public void DeleteGroup(string groupName)
+    private readonly HashSet<Group> _groups = [];
+    public void DeleteGroupByAnyPlayer(Player player)
     {
-        _groups.Remove(groupName);
+        var group = _groups.First(g => g.Player1 == player || g.Player2 == player);
+        _groups.Remove(group);
     }
 
-    public string FindPlayersGroup(string playerName)
+    public void AddGroup(Guid gameId, Player player1, Player player2)
     {
-        return _groups.FirstOrDefault(g => g.Contains(playerName))!;
+        var group = new Group() { GroupId = gameId, Player1  = player1, Player2 = player2 };
+        _groups.Add(group);
     }
 
-    public void AddGroup(string groupName, Player player1, Player player2)
+    public Player GetSecondPlayerByFirstPlayer(Player player)
     {
-        _groups.Add($"{groupName}");
+        var group = _groups.First(g => g.Player1 == player || g.Player2 == player);
+        return group.Player1 == player ? group.Player2 : group.Player1;
+    }
+
+    public Player GetPlayerByPlayerName(string playerName)
+    {
+        var group = _groups.First(g => g.Player1.Name == playerName || g.Player2.Name == playerName);
+        return group.Player1.Name == playerName ? group.Player1 : group.Player2;
+    }
+
+    public Group GetGroupByAnyPlayerName(string playerName)
+    {
+        return _groups.First(g => g.Player1.Name == playerName || g.Player2.Name == playerName);
+    }
+
+    public Group? GetGroupByGameId(Guid gameId)
+    {
+        return _groups.FirstOrDefault(g => g.GroupId == gameId);
     }
 }

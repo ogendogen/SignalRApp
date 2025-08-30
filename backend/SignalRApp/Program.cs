@@ -24,9 +24,9 @@ namespace SignalRApp
             builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
                     builder =>
                     {
-                        builder.AllowAnyHeader()
+                        builder.WithOrigins("http://localhost:3000", "http://127.0.0.1:5500", "null")
+                               .AllowAnyHeader()
                                .AllowAnyMethod()
-                               .SetIsOriginAllowed((host) => true)
                                .AllowCredentials();
                     }));
 
@@ -51,6 +51,7 @@ namespace SignalRApp
 
             app.MapControllers();
             app.MapHub<ChatHub>("/chathub");
+            app.MapHub<TicTacToeHub>("/tictactoehub");
 
             app.Run();
         }

@@ -9,5 +9,5 @@ public enum MovementResult
     Player1Wins,
     Player2Wins,
     Draw,
-    GameNotFound
+    Error,
 }

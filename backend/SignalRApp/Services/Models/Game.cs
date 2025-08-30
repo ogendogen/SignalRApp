@@ -48,6 +48,17 @@ public class Game : IEquatable<Game?>
         {
             return MovementResult.NotAllowed;
         }
+
+        if (_player1Turn && player != _player1.Name)
+        {
+            return MovementResult.NotAllowed;
+        }
+
+        if (!_player1Turn && player != _player2.Name)
+        {
+            return MovementResult.NotAllowed;
+        }
+
         _board[x, y] = fieldStatus;
 
         var winner = CheckWinner();

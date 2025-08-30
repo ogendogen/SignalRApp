@@ -10,26 +10,22 @@ public class TicTacToeService : ITicTacToeService
 {
     private readonly HashSet<Game> _games = new();
 
-    public void EndGame(string player1, string player2)
+    private void EndGame(Game game)
     {
-        throw new NotImplementedException();
-        //var groupName = GetPlayersGroupName(player1, player2);
-        //var isGameFound = _games.TryGetValue(groupName, out Game? game);
-        //if (isGameFound)
-        //{
-        //    _games.Remove(groupName);
-        //}
+        _games.Remove(game);
     }
 
-    public MovementResult Move(string groupName, string player, int x, int y, FieldStatus fieldStatus)
+    public MovementResult Move(Guid gameId, Player player, int x, int y, FieldStatus fieldStatus)
     {
-        var isGameFound = _games.TryGetValue(groupName, out Game? game);
-        if (!isGameFound)
+        var game = _games.First(g => g.Id == gameId);
+        var movementResult = game.Move(player.Name, x, y, fieldStatus);
+
+        if (movementResult == MovementResult.Player1Wins || movementResult == MovementResult.Player2Wins || movementResult == MovementResult.Draw)
         {
-            return MovementResult.GameNotFound;
+            EndGame(game);
         }
 
-        return game!.Move(player, x, y, fieldStatus);
+        return movementResult;
     }
 
     public Guid StartGame(Player player1, Player player2)
@@ -39,8 +35,9 @@ public class TicTacToeService : ITicTacToeService
         return game.Id;
     }
 
-    private string GetPlayersGroupName(string player1, string player2)
+    public bool IsGameExists(Guid gameId)
     {
-        return $"{player1} {player2}";
+        var game = _games.FirstOrDefault(g => g.Id == gameId);
+        return game is not null;
     }
 }
