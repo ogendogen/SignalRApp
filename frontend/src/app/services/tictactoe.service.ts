@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
+import { LoginRequest } from '../models/login/loginrequest';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,11 @@ export class TicTacToeService {
     return this.hubConnection.start();
   }
 
+  public login(playerName: string): Promise<any> {
+    const request: LoginRequest = { player: playerName };
+    return this.hubConnection.invoke('Login', request);
+  }
+
   public startGame(player1: string, player2: string): Promise<any> {
     return this.hubConnection.invoke('StartGame', player1, player2);
   }
@@ -30,10 +36,6 @@ export class TicTacToeService {
       const currentMessages = this.messagesSubject.value;
       this.messagesSubject.next([...currentMessages, `${user}: ${message}`]);
     });
-  }
-
-  public sendMessage(user: string, message: string): Promise<void> {
-    return this.hubConnection.invoke('SendMessage', user, message);
   }
 
   public stopConnection(): Promise<void> {

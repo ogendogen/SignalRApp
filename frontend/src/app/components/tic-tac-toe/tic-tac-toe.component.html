@@ -1,6 +1,7 @@
 <div class="game-container">
   <h2>Tic Tac Toe</h2>
   <div class="game-status">Player X's turn</div>
+  <div class="game-status">Logged in as:</div>
 
   <div class="game-board">
     <div class="cell" id="cell-0">
@@ -42,13 +43,45 @@
   </div>
 
   <div style="display: flex; gap: 20px">
+    <mat-form-field appearance="outline">
+      <mat-label>Your name</mat-label>
+      <input matInput placeholder="Enter your name" />
+    </mat-form-field>
     <button
       mat-raised-button
       color="primary"
       class="cell-button"
       style="float: left"
     >
-      Start Game
+      Login
+    </button>
+  </div>
+
+  <div style="display: flex; gap: 20px">
+    <mat-form-field appearance="outline">
+      <mat-label>Player Name</mat-label>
+      <input
+        matInput
+        placeholder="Enter player name"
+        [(ngModel)]="playerName"
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      class="cell-button"
+      style="float: left"
+      (click)="onLogin()"
+    >
+      Invite
+    </button>
+    <!-- <button
+      mat-raised-button
+      color="primary"
+      class="cell-button"
+      style="float: left"
+    >
+      Start Game 2
     </button>
     <button
       disabled
@@ -58,6 +91,6 @@
       style="float: left"
     >
       Reset Game
-    </button>
+    </button> -->
   </div>
 </div>
