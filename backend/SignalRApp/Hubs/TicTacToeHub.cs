@@ -45,6 +45,12 @@ public class TicTacToeHub : Hub
             return;
         }
 
+        if (_connectedPlayers.Any(p => p.Name == request.Player))
+        {
+            await Clients.Caller.SendAsync(MethodsNames.Login, new LoginResponse(false));
+            return;
+        }
+
         user.Name = request.Player;
 
         await Clients.Caller.SendAsync(MethodsNames.Login, new LoginResponse(true));

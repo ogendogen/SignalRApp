@@ -45,13 +45,14 @@
   <div style="display: flex; gap: 20px">
     <mat-form-field appearance="outline">
       <mat-label>Your name</mat-label>
-      <input matInput placeholder="Enter your name" />
+      <input matInput placeholder="Enter your name" [(ngModel)]="playerName" />
     </mat-form-field>
     <button
       mat-raised-button
       color="primary"
       class="cell-button"
       style="float: left"
+      (click)="onLogin()"
     >
       Login
     </button>
@@ -60,18 +61,13 @@
   <div style="display: flex; gap: 20px">
     <mat-form-field appearance="outline">
       <mat-label>Player Name</mat-label>
-      <input
-        matInput
-        placeholder="Enter player name"
-        [(ngModel)]="playerName"
-      />
+      <input matInput placeholder="Enter player name" />
     </mat-form-field>
     <button
       mat-raised-button
       color="primary"
       class="cell-button"
       style="float: left"
-      (click)="onLogin()"
     >
       Invite
     </button>

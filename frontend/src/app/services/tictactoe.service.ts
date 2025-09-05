@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { LoginRequest } from '../models/login/loginrequest';
+import { LoginResponse } from '../models/login/loginresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +10,14 @@ import { LoginRequest } from '../models/login/loginrequest';
 export class TicTacToeService {
   private hubConnection!: signalR.HubConnection;
   private messagesSubject = new BehaviorSubject<string[]>([]);
+  private readonly hubUrl = 'https://localhost:7171/tictactoehub';
   public messages$ = this.messagesSubject.asObservable();
 
   constructor() {}
 
-  public startConnection(hubUrl: string): Promise<void> {
+  public startConnection(): Promise<void> {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(hubUrl, { withCredentials: false })
+      .withUrl(this.hubUrl, { withCredentials: false })
       .withAutomaticReconnect()
       .build();
 
@@ -31,11 +33,8 @@ export class TicTacToeService {
     return this.hubConnection.invoke('StartGame', player1, player2);
   }
 
-  public addMessageListener(): void {
-    this.hubConnection.on('ReceiveMessage', (user: string, message: string) => {
-      const currentMessages = this.messagesSubject.value;
-      this.messagesSubject.next([...currentMessages, `${user}: ${message}`]);
-    });
+  public addLoginListener(callback: (login: LoginResponse) => void): void {
+    this.hubConnection.on('Login', callback);
   }
 
   public stopConnection(): Promise<void> {

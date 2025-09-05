@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FieldStatus } from '../../enums/field-status';
@@ -22,11 +22,16 @@ import { LoginResponse } from '../../models/login/loginresponse';
   templateUrl: './tic-tac-toe.component.html',
   styleUrl: './tic-tac-toe.component.scss',
 })
-export class TicTacToeComponent {
+export class TicTacToeComponent implements OnInit {
   playerName = '';
   isLoggedIn = false;
 
   constructor(private ticTacToeService: TicTacToeService) {}
+
+  ngOnInit(): void {
+    this.ticTacToeService.startConnection();
+    this.ticTacToeService.addLoginListener(this.loginListener);
+  }
 
   board: FieldStatus[][] = [
     [FieldStatus.Empty, FieldStatus.Empty, FieldStatus.Empty],
@@ -42,13 +47,14 @@ export class TicTacToeComponent {
     return this.board[x][y] == FieldStatus.Circle;
   }
 
-  onLogin() {
-    const loginResponse = this.ticTacToeService
-      .login(this.playerName)
-      .then((response: LoginResponse) => {
-        this.isLoggedIn = response.result;
-      });
-    console.log('Player name:', this.playerName);
-    console.log(JSON.stringify(loginResponse));
+  onLogin(): void {
+    this.ticTacToeService.login(this.playerName);
+  }
+
+  loginListener(response: LoginResponse): void {
+    if (response.result) {
+      this.isLoggedIn = true;
+      this.playerName = 'OK';
+    }
   }
 }
