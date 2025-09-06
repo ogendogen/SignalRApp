@@ -65,13 +65,18 @@
   <div style="display: flex; gap: 20px">
     <mat-form-field appearance="outline">
       <mat-label>Player Name</mat-label>
-      <input matInput placeholder="Enter player name" />
+      <input
+        matInput
+        placeholder="Enter player name"
+        [(ngModel)]="invitedPlayer"
+      />
     </mat-form-field>
     <button
       mat-raised-button
       color="primary"
       class="cell-button"
       style="float: left"
+      (click)="onInvite()"
     >
       Invite
     </button>

@@ -9,5 +9,4 @@ public static class MethodsNames
     public const string InviteSent = "InviteSent";
     public const string InviteAccepted = "InviteAccepted";
     public const string GameStarted = "GameStarted";
-    public const string AcceptInvite = "AcceptInvite";
 }

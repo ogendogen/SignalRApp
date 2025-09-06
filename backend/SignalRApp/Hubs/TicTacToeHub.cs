@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SignalRApp.Contracts.AcceptInvite;
+using SignalRApp.Contracts.GameStarted;
 using SignalRApp.Contracts.Invite;
 using SignalRApp.Contracts.Login;
 using SignalRApp.Contracts.Move;
@@ -75,7 +76,7 @@ public class TicTacToeHub : Hub
         }
         else
         {
-            await Clients.Caller.SendAsync(MethodsNames.Login, new InviteResponse(false, "User does not exist"));
+            await Clients.Caller.SendAsync(MethodsNames.InviteSent, new InviteResponse(false, "User does not exist"));
         }
     }
 
@@ -84,7 +85,7 @@ public class TicTacToeHub : Hub
         var invitation = _invitations.FirstOrDefault(x => x.InviteId == request.InviteId);
         if (invitation is null)
         {
-            await Clients.Caller.SendAsync(MethodsNames.InviteAccepted, new AcceptInviteResponse(false, "Invitation does not exist"));
+            await Clients.Caller.SendAsync(MethodsNames.InviteAccepted, new AcceptInviteResponse(false, ErrorMessage: "Invitation does not exist"));
             return;
         }
 
@@ -97,9 +98,9 @@ public class TicTacToeHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-        await Clients.OthersInGroup(groupName).SendAsync(MethodsNames.AcceptInvite, invitation.From, invitation.To);
+        await Clients.OthersInGroup(groupName).SendAsync(MethodsNames.InviteAccepted, new AcceptInviteResponse(true, Message: $"Invitation from {invitation.From} to {invitation.To} accepted"));
 
-        await Clients.Group(groupName).SendAsync(MethodsNames.GameStarted, gameId, player1, player2);
+        await Clients.Group(groupName).SendAsync(MethodsNames.GameStarted, new GameStarted(gameId, player1.Name, player2.Name));
     }
 
     public async Task RejectInvite(RejectInviteRequest request)
@@ -111,8 +112,16 @@ public class TicTacToeHub : Hub
             return;
         }
 
+        Player invitingPlayer = _connectedPlayers.FirstOrDefault(p => p.Name == invitation.From)!;
+        if (invitingPlayer is null)
+        {
+            await Clients.Caller.SendAsync(MethodsNames.InviteRejected, new RejectInviteResponse(false, "Inviting player is disconnected"));
+            return;
+        }
+
+        await Clients.Client(invitingPlayer.ConnectionId).SendAsync(MethodsNames.InviteRejected, new RejectInviteResponse(true, $"Invitation from {invitation.From} to {invitation.To} rejected"));
         _invitations.Remove(invitation);
-        await Clients.Caller.SendAsync(MethodsNames.InviteRejected, new RejectInviteResponse(true));
+        await Clients.Caller.SendAsync(MethodsNames.InviteRejected, new RejectInviteResponse(true, $"Invitation rejection from {invitation.From} to {invitation.To} sent successfully"));
     }
 
     public async Task Move(MoveRequest moveRequest)
