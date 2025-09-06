@@ -38,6 +38,12 @@ public class TicTacToeHub : Hub
 
     public async Task Login(LoginRequest request)
     {
+        if (string.IsNullOrEmpty(request.Player) || string.IsNullOrWhiteSpace(request.Player))
+        {
+            await Clients.Caller.SendAsync(MethodsNames.Login, new LoginResponse(false));
+            return;
+        }
+
         var user = _connectedPlayers.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
         if (user is null)
         {

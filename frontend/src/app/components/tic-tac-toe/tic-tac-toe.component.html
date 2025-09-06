@@ -1,7 +1,7 @@
 <div class="game-container">
   <h2>Tic Tac Toe</h2>
   <div class="game-status">Player X's turn</div>
-  <div class="game-status">Logged in as:</div>
+  <div class="game-status">Logged in as: {{ playerName }}</div>
 
   <div class="game-board">
     <div class="cell" id="cell-0">
@@ -45,7 +45,11 @@
   <div style="display: flex; gap: 20px">
     <mat-form-field appearance="outline">
       <mat-label>Your name</mat-label>
-      <input matInput placeholder="Enter your name" [(ngModel)]="playerName" />
+      <input
+        matInput
+        placeholder="Enter your name"
+        [(ngModel)]="inputPlayerName"
+      />
     </mat-form-field>
     <button
       mat-raised-button

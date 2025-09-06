@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FieldStatus } from '../../enums/field-status';
@@ -23,14 +23,20 @@ import { LoginResponse } from '../../models/login/loginresponse';
   styleUrl: './tic-tac-toe.component.scss',
 })
 export class TicTacToeComponent implements OnInit {
+  inputPlayerName = '';
   playerName = '';
   isLoggedIn = false;
 
-  constructor(private ticTacToeService: TicTacToeService) {}
+  constructor(
+    private ticTacToeService: TicTacToeService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.ticTacToeService.startConnection();
-    this.ticTacToeService.addLoginListener(this.loginListener);
+    this.ticTacToeService.addLoginListener((response: LoginResponse) => {
+      this.loginListener(response);
+    });
   }
 
   board: FieldStatus[][] = [
@@ -48,13 +54,14 @@ export class TicTacToeComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.ticTacToeService.login(this.playerName);
+    this.ticTacToeService.login(this.inputPlayerName);
   }
 
   loginListener(response: LoginResponse): void {
     if (response.result) {
       this.isLoggedIn = true;
-      this.playerName = 'OK';
+      this.playerName = this.inputPlayerName;
+      this.changeDetectorRef.markForCheck();
     }
   }
 }
