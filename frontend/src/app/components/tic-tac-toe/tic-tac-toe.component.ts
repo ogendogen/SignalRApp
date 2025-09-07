@@ -192,20 +192,23 @@ export class TicTacToeComponent implements OnInit {
 
     if (response.movementResult == MovementResult.Circle) {
       this.board[response.x][response.y] = FieldStatus.Circle;
-      this.snackBar.open('X turn now');
+      this.snackBar.open('X turn now', 'OK');
     } else if (response.movementResult == MovementResult.X) {
       this.board[response.x][response.y] = FieldStatus.X;
-      this.snackBar.open('Circle turn now');
+      this.snackBar.open('Circle turn now', 'OK');
     } else if (response.movementResult == MovementResult.Player1Wins) {
-      this.snackBar.open('Player 1 wins');
+      this.board[response.x][response.y] = FieldStatus.X;
+      this.snackBar.open('Player 1 wins', 'OK');
       this.game = null;
       this.isInGame = false;
     } else if (response.movementResult == MovementResult.Player2Wins) {
-      this.snackBar.open('Player 2 wins');
+      this.board[response.x][response.y] = FieldStatus.Circle;
+      this.snackBar.open('Player 2 wins', 'OK');
       this.game = null;
       this.isInGame = false;
     } else if (response.movementResult == MovementResult.Draw) {
-      this.snackBar.open('Draw');
+      this.board[response.x][response.y] = FieldStatus.X;
+      this.snackBar.open('Draw', 'OK');
       this.game = null;
       this.isInGame = false;
     } else if (response.movementResult == MovementResult.NotAllowed) {

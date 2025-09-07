@@ -162,6 +162,12 @@ public class TicTacToeHub : Hub
 
         var movementResult = _ticTacToeService.Move(moveRequest.GameId, player, moveRequest.X, moveRequest.Y);
 
+        if (movementResult == MovementResult.Error || movementResult == MovementResult.NotAllowed)
+        {
+            await Clients.Caller.SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = movementResult });
+            return;
+        }
+
         await Clients.Group(group.GroupId.ToString()).SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = movementResult, X = moveRequest.X, Y = moveRequest.Y });
     }
 }
