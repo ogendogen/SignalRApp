@@ -34,6 +34,8 @@ export class TicTacToeComponent implements OnInit {
   playerName = '';
   invitedPlayer = '';
   isLoggedIn = false;
+  isInGame = false;
+  game!: GameStarted;
 
   constructor(
     private ticTacToeService: TicTacToeService,
@@ -162,17 +164,19 @@ export class TicTacToeComponent implements OnInit {
   }
 
   addGameStartedListener(response: GameStarted): void {
+    this.game = response;
+    this.isInGame = true;
+    this.resetBoard();
     this.snackBar.open('Game Started! ID: ' + response.gameId, 'OK', {
       duration: 3000,
     });
-    // if (response.gameStarted) {
-    //   this.snackBar.open(response.message, 'OK', {
-    //     duration: 3000,
-    //   });
-    // } else {
-    //   this.snackBar.open('Game start error: ' + response.message, 'OK', {
-    //     duration: 3000,
-    //   });
-    // }
+  }
+
+  resetBoard(): void {
+    this.board = [
+      [FieldStatus.Empty, FieldStatus.Empty, FieldStatus.Empty],
+      [FieldStatus.Empty, FieldStatus.Empty, FieldStatus.Empty],
+      [FieldStatus.Empty, FieldStatus.Empty, FieldStatus.Empty],
+    ];
   }
 }
