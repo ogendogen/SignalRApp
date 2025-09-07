@@ -15,10 +15,10 @@ public class TicTacToeService : ITicTacToeService
         _games.Remove(game);
     }
 
-    public MovementResult Move(Guid gameId, Player player, int x, int y, FieldStatus fieldStatus)
+    public MovementResult Move(Guid gameId, Player player, int x, int y)
     {
         var game = _games.First(g => g.Id == gameId);
-        var movementResult = game.Move(player.Name, x, y, fieldStatus);
+        var movementResult = game.Move(player.Name, x, y);
 
         if (movementResult == MovementResult.Player1Wins || movementResult == MovementResult.Player2Wins || movementResult == MovementResult.Draw)
         {

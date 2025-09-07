@@ -7,11 +7,11 @@ public class Game : IEquatable<Game?>
 {
     public Guid Id { get; }
 
-    private readonly FieldStatus[,] _board = new FieldStatus[2, 2];
+    private readonly FieldStatus[,] _board = new FieldStatus[3, 3];
     private bool _player1Turn = true;
     private Player _player1 = null!;
     private Player _player2 = null!;
-    private GameStatus _gameStatus = GameStatus.Unknown;
+    //private GameStatus _gameStatus = GameStatus.Unknown;
 
     public Game(Player player1, Player player2)
     {
@@ -20,24 +20,24 @@ public class Game : IEquatable<Game?>
         Id = Guid.NewGuid();
         //https://github.com/damienbod/AspNetCoreAngularSignalRSecurity?tab=readme-ov-file
     }
-    public GameStatus GameStatus
-    {
-        get
-        {
-            return _gameStatus;
-        }
-        set
-        {
-            if ((_gameStatus == GameStatus.Unknown && (value == GameStatus.Player1Ready || value == GameStatus.Player2Ready)) ||
-                (_gameStatus == GameStatus.Player1Ready && value == GameStatus.Player2Ready) ||
-                (_gameStatus == GameStatus.Player2Ready && value == GameStatus.Player1Ready) ||
-                (_gameStatus == GameStatus.Player1Ready || _gameStatus == GameStatus.Player2Ready && value == GameStatus.InProgress))
-            {
-                _gameStatus = value;
-            }
-        }
-    }
-    public MovementResult Move(string player, int x, int y, FieldStatus fieldStatus)
+    //public GameStatus GameStatus
+    //{
+    //    get
+    //    {
+    //        return _gameStatus;
+    //    }
+    //    set
+    //    {
+    //        if ((_gameStatus == GameStatus.Unknown && (value == GameStatus.Player1Ready || value == GameStatus.Player2Ready)) ||
+    //            (_gameStatus == GameStatus.Player1Ready && value == GameStatus.Player2Ready) ||
+    //            (_gameStatus == GameStatus.Player2Ready && value == GameStatus.Player1Ready) ||
+    //            (_gameStatus == GameStatus.Player1Ready || _gameStatus == GameStatus.Player2Ready && value == GameStatus.InProgress))
+    //        {
+    //            _gameStatus = value;
+    //        }
+    //    }
+    //}
+    public MovementResult Move(string player, int x, int y)
     {
         if (x < 0 || y < 0 || x > 2 || y > 2)
         {
@@ -59,7 +59,8 @@ public class Game : IEquatable<Game?>
             return MovementResult.NotAllowed;
         }
 
-        _board[x, y] = fieldStatus;
+        _board[x, y] = _player1Turn ? FieldStatus.X : FieldStatus.Circle;
+        _player1Turn = !_player1Turn;
 
         var winner = CheckWinner();
         var isDraw = CheckDraw();
@@ -79,7 +80,7 @@ public class Game : IEquatable<Game?>
             return MovementResult.Draw;
         }
 
-        return MovementResult.Allowed;
+        return _board[x, y] == FieldStatus.X ? MovementResult.X : MovementResult.Circle;
     }
 
     private bool CheckDraw()

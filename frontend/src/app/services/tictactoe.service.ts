@@ -10,6 +10,8 @@ import { Invitation } from '../models/invitation/invitation';
 import { AcceptInviteResponse } from '../models/accept-invite/accept-invite.response';
 import { InviteRejectedResponse } from '../models/invite-rejected/invite-rejected.response';
 import { GameStarted } from '../models/game-started/game-started';
+import { MoveRequest } from '../models/move/move.request';
+import { MoveResponse } from '../models/move/move.response';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +76,10 @@ export class TicTacToeService {
     this.hubConnection.on('GameStarted', callback);
   }
 
+  public addMoveListener(callback: (moveResponse: MoveResponse) => void): void {
+    this.hubConnection.on('Move', callback);
+  }
+
   public stopConnection(): Promise<void> {
     return this.hubConnection.stop();
   }
@@ -86,5 +92,10 @@ export class TicTacToeService {
   public acceptInvite(inviteId: string): void {
     const request: AcceptInviteRequest = { inviteId };
     this.hubConnection.invoke('AcceptInvite', request);
+  }
+
+  public move(gameId: string, x: number, y: number): void {
+    const request: MoveRequest = { gameId, x, y };
+    this.hubConnection.invoke('Move', request);
   }
 }

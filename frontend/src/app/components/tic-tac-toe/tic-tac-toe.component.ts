@@ -13,6 +13,8 @@ import { Invitation } from '../../models/invitation/invitation';
 import { AcceptInviteResponse } from '../../models/accept-invite/accept-invite.response';
 import { InviteRejectedResponse } from '../../models/invite-rejected/invite-rejected.response';
 import { GameStarted } from '../../models/game-started/game-started';
+import { MoveResponse } from '../../models/move/move.response';
+import { MovementResult } from '../../models/move/movement-result.enum';
 
 @Component({
   selector: 'app-tic-tac-toe',
@@ -35,7 +37,7 @@ export class TicTacToeComponent implements OnInit {
   invitedPlayer = '';
   isLoggedIn = false;
   isInGame = false;
-  game!: GameStarted;
+  game: GameStarted | undefined | null;
 
   constructor(
     private ticTacToeService: TicTacToeService,
@@ -65,6 +67,9 @@ export class TicTacToeComponent implements OnInit {
     );
     this.ticTacToeService.addGameStartedListener((gameStarted: GameStarted) => {
       this.addGameStartedListener(gameStarted);
+    });
+    this.ticTacToeService.addMoveListener((moveResponse: MoveResponse) => {
+      this.addMoveListener(moveResponse);
     });
   }
 
@@ -170,6 +175,48 @@ export class TicTacToeComponent implements OnInit {
     this.snackBar.open('Game Started! ID: ' + response.gameId, 'OK', {
       duration: 3000,
     });
+  }
+
+  move(x: number, y: number): void {
+    if (this.board[x][y] != FieldStatus.Empty || !this.isInGame || !this.game) {
+      return;
+    }
+
+    this.ticTacToeService.move(this.game.gameId, x, y);
+  }
+
+  addMoveListener(response: MoveResponse): void {
+    if (!this.isInGame || !this.game) {
+      return;
+    }
+
+    if (response.movementResult == MovementResult.Circle) {
+      this.board[response.x][response.y] = FieldStatus.Circle;
+      this.snackBar.open('X turn now');
+    } else if (response.movementResult == MovementResult.X) {
+      this.board[response.x][response.y] = FieldStatus.X;
+      this.snackBar.open('Circle turn now');
+    } else if (response.movementResult == MovementResult.Player1Wins) {
+      this.snackBar.open('Player 1 wins');
+      this.game = null;
+      this.isInGame = false;
+    } else if (response.movementResult == MovementResult.Player2Wins) {
+      this.snackBar.open('Player 2 wins');
+      this.game = null;
+      this.isInGame = false;
+    } else if (response.movementResult == MovementResult.Draw) {
+      this.snackBar.open('Draw');
+      this.game = null;
+      this.isInGame = false;
+    } else if (response.movementResult == MovementResult.NotAllowed) {
+      this.snackBar.open('Move not allowed', 'OK', {
+        duration: 3000,
+      });
+    } else if (response.movementResult == MovementResult.Error) {
+      this.snackBar.open(response.error, 'OK', {
+        duration: 3000,
+      });
+    }
   }
 
   resetBoard(): void {

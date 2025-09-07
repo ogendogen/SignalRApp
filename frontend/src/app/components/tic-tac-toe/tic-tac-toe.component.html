@@ -4,39 +4,39 @@
   <div class="game-status">Logged in as: {{ playerName }}</div>
 
   <div class="game-board">
-    <div class="cell" id="cell-0">
+    <div class="cell" id="cell-0" (click)="move(0, 0)">
       <img *ngIf="IsX(0, 0)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(0, 0)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-1">
+    <div class="cell" id="cell-1" (click)="move(0, 1)">
       <img *ngIf="IsX(0, 1)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(0, 1)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-2">
+    <div class="cell" id="cell-2" (click)="move(0, 2)">
       <img *ngIf="IsX(0, 2)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(0, 2)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-3">
+    <div class="cell" id="cell-3" (click)="move(1, 0)">
       <img *ngIf="IsX(1, 0)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(1, 0)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-4">
+    <div class="cell" id="cell-4" (click)="move(1, 1)">
       <img *ngIf="IsX(1, 1)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(1, 1)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-5">
+    <div class="cell" id="cell-5" (click)="move(1, 2)">
       <img *ngIf="IsX(1, 2)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(1, 2)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-6">
+    <div class="cell" id="cell-6" (click)="move(2, 0)">
       <img *ngIf="IsX(2, 0)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(2, 0)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-7">
+    <div class="cell" id="cell-7" (click)="move(2, 1)">
       <img *ngIf="IsX(2, 1)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(2, 1)" src="circle.png" width="64" height="64" />
     </div>
-    <div class="cell" id="cell-8">
+    <div class="cell" id="cell-8" (click)="move(2, 2)">
       <img *ngIf="IsX(2, 2)" src="x.png" width="64" height="64" />
       <img *ngIf="IsCircle(2, 2)" src="circle.png" width="64" height="64" />
     </div>

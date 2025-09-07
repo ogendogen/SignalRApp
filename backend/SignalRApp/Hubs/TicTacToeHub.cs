@@ -67,6 +67,12 @@ public class TicTacToeHub : Hub
     {
         var invitingPlayer = _connectedPlayers.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
         var invitedPlayerConnectionId = _connectedPlayers.FirstOrDefault(p => p.Name == request.InvitedPlayer)?.ConnectionId; // todo: optimize with reversed dictionary
+        if (invitedPlayerConnectionId == Context.ConnectionId)
+        {
+            await Clients.Caller.SendAsync(MethodsNames.InviteSent, new InviteResponse(false, "You cannot invite yourself"));
+            return;
+        }
+
         if (invitedPlayerConnectionId is not null)
         {
             var invitation = new Invitation(Guid.NewGuid(), invitingPlayer!.Name, request.InvitedPlayer); // todo: fix exclamation mark
@@ -140,15 +146,22 @@ public class TicTacToeHub : Hub
             return;
         }
 
-        var player = group.Player1.Name == moveRequest.PlayerName ? group.Player1 : (group.Player2.Name == moveRequest.PlayerName ? group.Player2 : null);
+        var callerPlayer = _connectedPlayers.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
+        if (callerPlayer is null)
+        {
+            await Clients.Caller.SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = MovementResult.Error, Error = "Player does not exist" });
+            return;
+        }
+
+        var player = group.Player1.Name == callerPlayer.Name ? group.Player1 : (group.Player2.Name == callerPlayer.Name ? group.Player2 : null);
         if (player is null)
         {
             await Clients.Caller.SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = MovementResult.Error, Error = "Player does not exist" });
             return;
         }
 
-        var movementResult = _ticTacToeService.Move(moveRequest.GameId, player, moveRequest.X, moveRequest.Y, moveRequest.FieldStatus);
+        var movementResult = _ticTacToeService.Move(moveRequest.GameId, player, moveRequest.X, moveRequest.Y);
 
-        await Clients.Group(group.GroupId.ToString()).SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = movementResult });
+        await Clients.Group(group.GroupId.ToString()).SendAsync(MethodsNames.Move, new MoveResponse() { MovementResult = movementResult, X = moveRequest.X, Y = moveRequest.Y });
     }
 }

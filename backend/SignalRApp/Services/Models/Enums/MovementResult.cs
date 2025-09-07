@@ -4,7 +4,8 @@ namespace SignalRApp.Services.Models.Enums;
 
 public enum MovementResult
 {
-    Allowed,
+    X,
+    Circle,
     NotAllowed,
     Player1Wins,
     Player2Wins,
