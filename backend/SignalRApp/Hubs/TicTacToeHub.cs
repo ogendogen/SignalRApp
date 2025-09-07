@@ -89,13 +89,14 @@ public class TicTacToeHub : Hub
             return;
         }
 
-        var player1 = new Player() { ConnectionId = _connectedPlayers.FirstOrDefault(p => p.Name == invitation.From)!.ConnectionId, Name = invitation.From };
+        var player1ConnectionId = _connectedPlayers.FirstOrDefault(p => p.Name == invitation.From)!.ConnectionId;
+        var player1 = new Player() { ConnectionId = player1ConnectionId, Name = invitation.From };
         var player2 = new Player() { ConnectionId = Context.ConnectionId, Name = invitation.To };
 
         var gameId = _ticTacToeService.StartGame(player1, player2);
         var groupName = gameId.ToString();
         _groupsService.AddGroup(gameId, player1, player2);
-        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await Groups.AddToGroupAsync(player1ConnectionId, groupName);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
         await Clients.OthersInGroup(groupName).SendAsync(MethodsNames.InviteAccepted, new AcceptInviteResponse(true, Message: $"Invitation from {invitation.From} to {invitation.To} accepted"));

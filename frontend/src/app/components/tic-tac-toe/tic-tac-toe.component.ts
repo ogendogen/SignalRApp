@@ -12,6 +12,7 @@ import { InviteResponse } from '../../models/invite/invite.response';
 import { Invitation } from '../../models/invitation/invitation';
 import { AcceptInviteResponse } from '../../models/accept-invite/accept-invite.response';
 import { InviteRejectedResponse } from '../../models/invite-rejected/invite-rejected.response';
+import { GameStarted } from '../../models/game-started/game-started';
 
 @Component({
   selector: 'app-tic-tac-toe',
@@ -60,6 +61,9 @@ export class TicTacToeComponent implements OnInit {
         this.inviteRejectedListener(response);
       }
     );
+    this.ticTacToeService.addGameStartedListener((gameStarted: GameStarted) => {
+      this.addGameStartedListener(gameStarted);
+    });
   }
 
   board: FieldStatus[][] = [
@@ -155,5 +159,20 @@ export class TicTacToeComponent implements OnInit {
         duration: 3000,
       });
     }
+  }
+
+  addGameStartedListener(response: GameStarted): void {
+    this.snackBar.open('Game Started! ID: ' + response.gameId, 'OK', {
+      duration: 3000,
+    });
+    // if (response.gameStarted) {
+    //   this.snackBar.open(response.message, 'OK', {
+    //     duration: 3000,
+    //   });
+    // } else {
+    //   this.snackBar.open('Game start error: ' + response.message, 'OK', {
+    //     duration: 3000,
+    //   });
+    // }
   }
 }

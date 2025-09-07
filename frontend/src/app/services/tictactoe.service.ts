@@ -9,6 +9,7 @@ import { AcceptInviteRequest } from '../models/accept-invite/accept-invite.reque
 import { Invitation } from '../models/invitation/invitation';
 import { AcceptInviteResponse } from '../models/accept-invite/accept-invite.response';
 import { InviteRejectedResponse } from '../models/invite-rejected/invite-rejected.response';
+import { GameStarted } from '../models/game-started/game-started';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,12 @@ export class TicTacToeService {
     callback: (invitation: Invitation) => void
   ): void {
     this.hubConnection.on('Invitation', callback);
+  }
+
+  public addGameStartedListener(
+    callback: (gameStarted: GameStarted) => void
+  ): void {
+    this.hubConnection.on('GameStarted', callback);
   }
 
   public stopConnection(): Promise<void> {
