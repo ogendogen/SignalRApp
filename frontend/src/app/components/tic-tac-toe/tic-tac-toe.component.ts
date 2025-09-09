@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { FieldStatus } from '../../enums/field-status';
@@ -15,6 +15,7 @@ import { InviteRejectedResponse } from '../../models/invite-rejected/invite-reje
 import { GameStarted } from '../../models/game-started/game-started';
 import { MoveResponse } from '../../models/move/move.response';
 import { MovementResult } from '../../models/move/movement-result.enum';
+import { InvitationsComponent } from '../invitations/invitations.component';
 
 @Component({
   selector: 'app-tic-tac-toe',
@@ -27,6 +28,7 @@ import { MovementResult } from '../../models/move/movement-result.enum';
     MatInputModule,
     FormsModule,
     MatSnackBarModule,
+    InvitationsComponent,
   ],
   templateUrl: './tic-tac-toe.component.html',
   styleUrl: './tic-tac-toe.component.scss',
@@ -38,6 +40,7 @@ export class TicTacToeComponent implements OnInit {
   isLoggedIn = false;
   isInGame = false;
   game: GameStarted | undefined | null;
+  invitations: Invitation[] = [];
 
   constructor(
     private ticTacToeService: TicTacToeService,
@@ -129,7 +132,7 @@ export class TicTacToeComponent implements OnInit {
   }
 
   invitationListener(invitation: Invitation): void {
-    // todo: show invitations list with extra panel
+    this.invitations = [...this.invitations, invitation];
     this.snackBar
       .open('You have been invited to play by ' + invitation.from, 'Accept', {
         duration: 10000,

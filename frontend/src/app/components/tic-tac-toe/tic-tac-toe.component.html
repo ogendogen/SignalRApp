@@ -1,101 +1,96 @@
-<div class="game-container">
-  <h2>Tic Tac Toe</h2>
-  <div class="game-status">Player X's turn</div>
-  <div class="game-status">Logged in as: {{ playerName }}</div>
+<div class="main-container">
+  <div class="container-1"></div>
 
-  <div class="game-board">
-    <div class="cell" id="cell-0" (click)="move(0, 0)">
-      <img *ngIf="IsX(0, 0)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(0, 0)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-1" (click)="move(0, 1)">
-      <img *ngIf="IsX(0, 1)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(0, 1)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-2" (click)="move(0, 2)">
-      <img *ngIf="IsX(0, 2)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(0, 2)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-3" (click)="move(1, 0)">
-      <img *ngIf="IsX(1, 0)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(1, 0)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-4" (click)="move(1, 1)">
-      <img *ngIf="IsX(1, 1)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(1, 1)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-5" (click)="move(1, 2)">
-      <img *ngIf="IsX(1, 2)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(1, 2)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-6" (click)="move(2, 0)">
-      <img *ngIf="IsX(2, 0)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(2, 0)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-7" (click)="move(2, 1)">
-      <img *ngIf="IsX(2, 1)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(2, 1)" src="circle.png" width="64" height="64" />
-    </div>
-    <div class="cell" id="cell-8" (click)="move(2, 2)">
-      <img *ngIf="IsX(2, 2)" src="x.png" width="64" height="64" />
-      <img *ngIf="IsCircle(2, 2)" src="circle.png" width="64" height="64" />
+  <div class="container-2">
+    <div class="game-container">
+      <h2>Tic Tac Toe</h2>
+      <div class="game-status">Player X's turn</div>
+      <div class="game-status">Logged in as: {{ playerName }}</div>
+
+      <div class="game-board">
+        <div class="cell" id="cell-0" (click)="move(0, 0)">
+          <img *ngIf="IsX(0, 0)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(0, 0)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-1" (click)="move(0, 1)">
+          <img *ngIf="IsX(0, 1)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(0, 1)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-2" (click)="move(0, 2)">
+          <img *ngIf="IsX(0, 2)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(0, 2)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-3" (click)="move(1, 0)">
+          <img *ngIf="IsX(1, 0)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(1, 0)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-4" (click)="move(1, 1)">
+          <img *ngIf="IsX(1, 1)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(1, 1)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-5" (click)="move(1, 2)">
+          <img *ngIf="IsX(1, 2)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(1, 2)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-6" (click)="move(2, 0)">
+          <img *ngIf="IsX(2, 0)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(2, 0)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-7" (click)="move(2, 1)">
+          <img *ngIf="IsX(2, 1)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(2, 1)" src="circle.png" width="64" height="64" />
+        </div>
+        <div class="cell" id="cell-8" (click)="move(2, 2)">
+          <img *ngIf="IsX(2, 2)" src="x.png" width="64" height="64" />
+          <img *ngIf="IsCircle(2, 2)" src="circle.png" width="64" height="64" />
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 20px">
+        <mat-form-field appearance="outline">
+          <mat-label>Your name</mat-label>
+          <input
+            matInput
+            placeholder="Enter your name"
+            [(ngModel)]="inputPlayerName"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="cell-button"
+          style="float: left"
+          (click)="onLogin()"
+        >
+          Login
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 20px">
+        <mat-form-field appearance="outline">
+          <mat-label>Player Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter player name"
+            [(ngModel)]="invitedPlayer"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="cell-button"
+          style="float: left"
+          (click)="onInvite()"
+        >
+          Invite
+        </button>
+      </div>
     </div>
   </div>
 
-  <div style="display: flex; gap: 20px">
-    <mat-form-field appearance="outline">
-      <mat-label>Your name</mat-label>
-      <input
-        matInput
-        placeholder="Enter your name"
-        [(ngModel)]="inputPlayerName"
-      />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="primary"
-      class="cell-button"
-      style="float: left"
-      (click)="onLogin()"
-    >
-      Login
-    </button>
+  <div class="container-3">
+    <app-invitations [invitations]="invitations"></app-invitations>
   </div>
 
-  <div style="display: flex; gap: 20px">
-    <mat-form-field appearance="outline">
-      <mat-label>Player Name</mat-label>
-      <input
-        matInput
-        placeholder="Enter player name"
-        [(ngModel)]="invitedPlayer"
-      />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="primary"
-      class="cell-button"
-      style="float: left"
-      (click)="onInvite()"
-    >
-      Invite
-    </button>
-    <!-- <button
-      mat-raised-button
-      color="primary"
-      class="cell-button"
-      style="float: left"
-    >
-      Start Game 2
-    </button>
-    <button
-      disabled
-      mat-raised-button
-      color="primary"
-      class="reset-button"
-      style="float: left"
-    >
-      Reset Game
-    </button> -->
-  </div>
+  <div class="container-4"></div>
 </div>
